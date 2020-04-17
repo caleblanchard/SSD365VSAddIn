@@ -1,7 +1,7 @@
 ﻿using Microsoft.Dynamics.AX.Metadata.MetaModel;
 using Microsoft.Dynamics.Framework.Tools.Extensibility;
 using Microsoft.Dynamics.Framework.Tools.MetaModel.Automation.Forms;
-using Microsoft.Dynamics.Framework.Tools.MetaModel.Core;
+using Microsoft.Dynamics.AX.Server.Core.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +23,6 @@ namespace SSD365VSAddIn.Forms
             }
             var name = form.Name;// + Common.Constants.DotEXTENSION;
             name = Common.CommonUtil.GetNextFormExtension(name);
-
-            // Find current model
-            //Create menu item in the right model
-            var metaModelProviders = ServiceLocator.GetService(typeof(IMetaModelProviders)) as IMetaModelProviders;
-
 
             //Create an extension object
             axExtension = new AxFormExtension() { Name = name };

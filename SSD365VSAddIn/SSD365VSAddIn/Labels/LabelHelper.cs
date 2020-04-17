@@ -22,7 +22,7 @@ namespace SSD365VSAddIn.Labels
 
         }
 
-        public IList<AxLabelFile> GetLabelFilesSettings()
+        public static IList<AxLabelFile> GetLabelFilesSettings()
         {
             List<AxLabelFile> labelFilesToUpdate = new List<AxLabelFile>();
 
@@ -32,6 +32,11 @@ namespace SSD365VSAddIn.Labels
                     var axLabelFile = Common.CommonUtil.GetModelSaveService().GetLabelFile(labelFileName);
                     labelFilesToUpdate.Add(axLabelFile);
                 });
+
+            if (labelFilesToUpdate.Count == 0)
+            {
+                return LabelHelper.GetLabelFiles();
+            }
 
             return labelFilesToUpdate;
         }
@@ -49,10 +54,10 @@ namespace SSD365VSAddIn.Labels
             // Get the list of label files from that model
             var metaModelProvider = Common.CommonUtil.GetModelSaveService();
 
-            var metaModelProviders = Microsoft.Dynamics.Framework.Tools.MetaModel.Core.ServiceLocator.GetService(typeof(Microsoft.Dynamics.Framework.Tools.Extensibility.IMetaModelProviders)) as Microsoft.Dynamics.Framework.Tools.Extensibility.IMetaModelProviders;
+            var metaModelProviders = Microsoft.Dynamics.AX.Server.Core.Service.ServiceLocator.GetService< Microsoft.Dynamics.Framework.Tools.Extensibility.IMetaModelProviders>() as Microsoft.Dynamics.Framework.Tools.Extensibility.IMetaModelProviders;
             var metaModelService = metaModelProviders.CurrentMetaModelService;
 
-            IList<string> labelFiles = metaModelProviders.CurrentMetadataProvider.LabelFiles.ListObjectsForModel(Common.CommonUtil.GetCurrentModel().Name);
+            IEnumerable<string> labelFiles = metaModelProviders.CurrentMetadataProvider.LabelFiles.ListObjectsForModel(Common.CommonUtil.GetCurrentModel().Name).Where(l => !l.Contains("_Extension"));
 
             var labelFileName = labelFiles.FirstOrDefault();
             if (labelFileName != null)
@@ -127,7 +132,7 @@ namespace SSD365VSAddIn.Labels
                 LabelControllerFactory factory = new LabelControllerFactory();
 
                 // Get the label edit controller
-                var labelFiles = LabelHelper.GetLabelFiles();
+                var labelFiles = LabelHelper.GetLabelFilesSettings();
 
                 var labelFile = labelFiles.First();
 

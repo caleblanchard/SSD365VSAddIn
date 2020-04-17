@@ -8,6 +8,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Dynamics.AX.Server.Core.Service;
 
 namespace SSD365VSAddIn.Tables
 {
@@ -149,7 +150,7 @@ namespace SSD365VSAddIn.Tables
                 var modelSaveInfo = Common.CommonUtil.GetCurrentModelSaveInfo();
 
                 //Create menu item in the right model
-                var metaModelProviders = ServiceLocator.GetService(typeof(IMetaModelProviders)) as IMetaModelProviders;
+                var metaModelProviders = ServiceLocator.GetService<IMetaModelProviders>() as IMetaModelProviders;
                 var metaModelService = metaModelProviders.CurrentMetaModelService;
 
                 metaModelService.CreateExtendedDataType(edtToCreate, modelSaveInfo);

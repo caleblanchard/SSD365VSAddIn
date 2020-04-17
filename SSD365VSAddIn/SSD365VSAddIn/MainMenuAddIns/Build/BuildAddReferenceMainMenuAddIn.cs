@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Dynamics.AX.Server.Core.Service;
 
 namespace SSD365VSAddIn.MainMenuAddIns.Build
 {
@@ -242,7 +243,7 @@ namespace SSD365VSAddIn.MainMenuAddIns.Build
         public void BuildSolution()
         {
             //Microsoft.Dynamics.AX.Metadata.Providers.IMetadataProvider
-            var metaModelProviders = ServiceLocator.GetService(typeof(Microsoft.Dynamics.AX.Metadata.Providers.IMetadataProvider)) as Microsoft.Dynamics.AX.Metadata.Providers.IMetadataProvider;
+            var metaModelProviders = ServiceLocator.GetService<Microsoft.Dynamics.AX.Metadata.Providers.IMetadataProvider>() as Microsoft.Dynamics.AX.Metadata.Providers.IMetadataProvider;
             if(metaModelProviders !=null)
             {
                 //TODO: #24 somehow refresh the models

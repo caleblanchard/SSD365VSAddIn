@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Dynamics.Framework.Tools.MetaModel.Core;
+using Microsoft.Dynamics.AX.Server.Core.Service;
 using Microsoft.Dynamics.AX.Metadata.MetaModel;
 
 namespace SSD365VSAddIn.Forms
@@ -95,7 +96,7 @@ namespace SSD365VSAddIn.Forms
             var modelSaveInfo = Common.CommonUtil.GetCurrentModelSaveInfo();
 
             //Create menu item in the right model
-            var metaModelProviders = ServiceLocator.GetService(typeof(IMetaModelProviders)) as IMetaModelProviders;
+            var metaModelProviders = ServiceLocator.GetService< IMetaModelProviders>() as IMetaModelProviders;
             var metaModelService = metaModelProviders.CurrentMetaModelService;
 
             metaModelService.CreateMenuItemDisplay(menuItemDisplay, modelSaveInfo);

@@ -10,6 +10,7 @@ using Microsoft.Dynamics.AX.Metadata.Service;
 using Microsoft.Dynamics.Framework.Tools.Extensibility;
 using Microsoft.Dynamics.Framework.Tools.MetaModel.Core;
 using Microsoft.Dynamics.Framework.Tools.ProjectSystem;
+using Microsoft.Dynamics.AX.Server.Core.Service;
 
 namespace SSD365VSAddIn.Common
 {
@@ -108,7 +109,13 @@ namespace SSD365VSAddIn.Common
 
         internal static IMetaModelProviders GetMetaModelProviders()
         {
-            var metaModelProviders = ServiceLocator.GetService(typeof(IMetaModelProviders)) as IMetaModelProviders;
+            var metaModelProviders = ServiceLocator.GetService<IMetaModelProviders>(false) as IMetaModelProviders;
+
+            if (metaModelProviders == null)
+            {
+                metaModelProviders = new ExtensibilityService();
+                ServiceLocator.RegisterService<IMetaModelProviders>(metaModelProviders);
+            }
 
             return metaModelProviders;
         }

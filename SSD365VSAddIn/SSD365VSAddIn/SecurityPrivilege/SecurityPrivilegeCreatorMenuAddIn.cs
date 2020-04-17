@@ -11,6 +11,7 @@
     using Microsoft.Dynamics.Framework.Tools.MetaModel.Core;
     using Microsoft.Dynamics.Framework.Tools.MetaModel.Automation.Menus;
     using Microsoft.Dynamics.Framework.Tools.MetaModel.Automation.DataEntityViews;
+    using Microsoft.Dynamics.AX.Server.Core.Service;
 
     /// <summary>
     /// Creates 2 Security privileges Maintain & View for the selected Menu item
@@ -197,7 +198,7 @@
             var modelSaveInfo = Common.CommonUtil.GetCurrentModelSaveInfo();
 
             //Create item in the right model
-            var metaModelProviders = ServiceLocator.GetService(typeof(IMetaModelProviders)) as IMetaModelProviders;
+            var metaModelProviders = ServiceLocator.GetService<IMetaModelProviders>() as IMetaModelProviders;
             var metaModelService = metaModelProviders.CurrentMetaModelService;
 
             metaModelService.CreateSecurityPrivilege(axSecurityPrivMaint, modelSaveInfo);

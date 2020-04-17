@@ -1,7 +1,7 @@
 ﻿using Microsoft.Dynamics.AX.Metadata.MetaModel;
 using Microsoft.Dynamics.Framework.Tools.Extensibility;
 using Microsoft.Dynamics.Framework.Tools.MetaModel.Automation;
-using Microsoft.Dynamics.Framework.Tools.MetaModel.Core;
+using Microsoft.Dynamics.AX.Server.Core.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +26,6 @@ namespace SSD365VSAddIn.DataEntity
             var name = dataEntity.Name;// + Common.Constants.DotEXTENSION;
             name = Common.CommonUtil.GetNextDataEntityExtension(name);
             //name = Common.CommonUtil.GetNextTableExtension(name);
-
-            // Find current model
-            //Create menu item in the right model
-            var metaModelProviders = ServiceLocator.GetService(typeof(IMetaModelProviders)) as IMetaModelProviders;
-
 
             //Create an extension object
             axExtension = new AxDataEntityViewExtension() { Name = name };

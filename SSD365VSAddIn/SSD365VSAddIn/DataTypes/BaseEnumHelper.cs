@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Dynamics.Framework.Tools.MetaModel.Automation.BaseTypes;
-using Microsoft.Dynamics.Framework.Tools.MetaModel.Core;
+using Microsoft.Dynamics.AX.Server.Core.Service;
 using Microsoft.Dynamics.Framework.Tools.Extensibility;
 using Microsoft.Dynamics.AX.Metadata.MetaModel;
 
@@ -25,10 +25,6 @@ namespace SSD365VSAddIn.DataTypes
 
             var name = baseEnum.Name; // + Common.Constants.DotEXTENSION;
             name = Common.CommonUtil.GetNextBaseEnumExtension(name);
-
-            // Find current model
-            //Create menu item in the right model
-            var metaModelProviders = ServiceLocator.GetService(typeof(IMetaModelProviders)) as IMetaModelProviders;
 
 
             //Create an extension object
