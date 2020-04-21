@@ -146,7 +146,8 @@ namespace SSD365VSAddIn.Labels
                 if (labelController.Exists(labelId) == false
                     && labelController.Exists(labelText) == false) // the label text may be an Id by itself
                 {
-                    labelController.Insert(labelId, labelText, null);
+                    var currentProject = Common.CommonUtil.GetCurrentProject();
+                    labelController.Insert(labelId, labelText, currentProject.Name);
                     labelController.Save();
                     Common.CommonUtil.AddElementToProject(labelFile);
 
@@ -163,8 +164,8 @@ namespace SSD365VSAddIn.Labels
                             labelControllerToAdd.Labels.Add(new Label(
                                 labelControllerToAdd.CurrentLabelFile,
                                 string.IsNullOrEmpty(labelId) ? labelControllerToAdd.LabelIDCache.NewLabelID() : labelId,
-                                labelText, 
-                                String.Empty, // Comment
+                                labelText,
+                                currentProject.Name, // Comment
                                 LabelState.Init
                                 ));
                             //labelControllerToAdd.Insert(labelId, labelText, null);
